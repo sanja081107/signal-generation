@@ -4,6 +4,7 @@
 #include <math.h>
 #include <conio.h>
 #include <fstream>
+#include "ShellAPI.h"
 #pragma hdrstop
 #include <stdio.h>
 
@@ -230,6 +231,13 @@ if(RadioButton6->Checked)
         x1=0.0199999999999;
         x2=0.04000000001;
         }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button3Click(TObject *Sender)
+{
+ShellExecute(0,0,"Project1.exe",0,0,SW_SHOW); //Запускаем новую копию
+Close(); //Закрываем старую
 }
 //---------------------------------------------------------------------------
 

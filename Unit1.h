@@ -37,6 +37,7 @@ __published:	// IDE-managed Components
         TRadioButton *RadioButton4;
         TRadioButton *RadioButton5;
         TRadioButton *RadioButton6;
+        TButton *Button3;
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
         void __fastcall RadioButton1Click(TObject *Sender);
@@ -45,6 +46,7 @@ __published:	// IDE-managed Components
         void __fastcall RadioButton4Click(TObject *Sender);
         void __fastcall RadioButton5Click(TObject *Sender);
         void __fastcall RadioButton6Click(TObject *Sender);
+        void __fastcall Button3Click(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations
