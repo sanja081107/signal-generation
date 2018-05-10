@@ -22,11 +22,12 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
 int k,l;
+AnsiString str=Edit3->Text;
 FILE *myfile;
 
    A=1;
    Rmax=0;
-   d=0.000001;
+   d=0.00001;
    while(A>=0.5){
              FrequencyWSP();
              FrequencyWO();
@@ -36,7 +37,7 @@ FILE *myfile;
                  Rmax=R1;
                  Amax=A;
                          }
-              A=A-0.000001;
+              A=A-d;
                 }
    A=Amax;
    FrequencyWSP();
@@ -52,29 +53,30 @@ FILE *myfile;
            FrequencyP();
            OdEl();
            MAXMIN();
-           A=A-0.000001;
+           A=A-d;
                     }
                }
-   A=Amax-0.000001;
+   A=Amax-d;
    while(A>=0.5){
            FrequencyWSP();
            FrequencyWO();
            FrequencyP();
            OdEl();
            MAXMIN();
-           A=A-0.000001;
+           A=A-d;
                 }
   void MAXMIN1();
   for(k=0;k<Rb;k++){
         Wp3[k]=(Wpmax[k]+Wpmin[k])/2;
         Wp13[k]=((Wpmax[k]-Wp3[k])/Wp3[k])*100;
                    }
+                   
   for(k=0;k<Rb;k++){
       Series4->AddXY(Wp3[k],Wp13[k],"",clBlack);
                    }
    l=0;
 
-  myfile = fopen("rezult.txt", "w");
+  myfile = fopen(Edit3->Text.c_str(), "w");
 
   if(Wp13[0]<Wp13[1])
                         {
@@ -171,16 +173,63 @@ int i,w,v,Ipogr,Wpogr,Vpogr,Vpogr1,Wpogr1;
 
 }
 //---------------------------------------------------------------------------
+void __fastcall TForm1::RadioButton1Click(TObject *Sender)
+{
+if(RadioButton1->Checked)
+        {
+        x1=0.0374999999999;
+        x2=0.04250000001;
+        }
+}
+//---------------------------------------------------------------------------
 
+void __fastcall TForm1::RadioButton2Click(TObject *Sender)
+{
+if(RadioButton2->Checked)
+        {
+        x1=0.0249999999999;
+        x2=0.03500000001;
+        }
+}
+//---------------------------------------------------------------------------
 
+void __fastcall TForm1::RadioButton3Click(TObject *Sender)
+{
+if(RadioButton3->Checked)
+        {
+        x1=0.0274999999999;
+        x2=0.03250000001;
+        }
+}
+//---------------------------------------------------------------------------
 
+void __fastcall TForm1::RadioButton4Click(TObject *Sender)
+{
+if(RadioButton4->Checked)
+        {
+        x1=0.0299999999999;
+        x2=0.05000000001;
+        }
+}
+//---------------------------------------------------------------------------
 
+void __fastcall TForm1::RadioButton5Click(TObject *Sender)
+{
+if(RadioButton5->Checked)
+        {
+        x1=0.0349999999999;
+        x2=0.04500000001;
+        }
+}
+//---------------------------------------------------------------------------
 
-
-
-
-
-
-
-
+void __fastcall TForm1::RadioButton6Click(TObject *Sender)
+{
+if(RadioButton6->Checked)
+        {
+        x1=0.0199999999999;
+        x2=0.04000000001;
+        }
+}
+//---------------------------------------------------------------------------
 

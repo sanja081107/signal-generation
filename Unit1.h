@@ -29,15 +29,30 @@ __published:	// IDE-managed Components
         TLabeledEdit *ApogrEdit;
         TLabeledEdit *WpogrEdit;
         TLabeledEdit *VpogrEdit;
+        TEdit *Edit3;
+        TLabel *Label3;
+        TRadioButton *RadioButton1;
+        TRadioButton *RadioButton2;
+        TRadioButton *RadioButton3;
+        TRadioButton *RadioButton4;
+        TRadioButton *RadioButton5;
+        TRadioButton *RadioButton6;
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
+        void __fastcall RadioButton1Click(TObject *Sender);
+        void __fastcall RadioButton2Click(TObject *Sender);
+        void __fastcall RadioButton3Click(TObject *Sender);
+        void __fastcall RadioButton4Click(TObject *Sender);
+        void __fastcall RadioButton5Click(TObject *Sender);
+        void __fastcall RadioButton6Click(TObject *Sender);
+
 private:	// User declarations
 public:		// User declarations
         __fastcall TForm1(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;
-double A, Fwsp, Fwo, Fp, d, Amax;
+double A, Fwsp, Fwo, Fp, d, Amax, x1, x2;
 int V, N, W, M, R, R1, Rb, Rmax, R2;
 double Wsp[100], Wo[100];
 double Wp0[1000], Wp10[1000], Wp1[1000], Wp11[1000], Wp2[1000], Wp12[1000],
@@ -50,9 +65,9 @@ void FrequencyWSP()
    V=1;
    Fwsp=A/V;
    N=0; i=0;
-   while(Fwsp>=0.0374999999999)
+   while(Fwsp>=x1)
          {
-          if(Fwsp<=0.04250000001)
+                if(Fwsp<=x2)
                                 {
                            Wsp[i]=Fwsp;
                            i=i+1;
