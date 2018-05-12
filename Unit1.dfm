@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 474
-  Top = 240
-  Width = 724
+  Left = 419
+  Top = 237
+  Width = 670
   Height = 480
   Caption = 'Form1'
   Color = clBtnFace
@@ -13,12 +13,25 @@ object Form1: TForm1
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
-  object Label3: TLabel
+  object Label1: TLabel
     Left = 24
-    Top = 344
-    Width = 54
+    Top = 296
+    Width = 148
+    Height = 20
+    Caption = #1042#1099#1073#1088#1080#1090#1077' '#1080#1085#1090#1077#1088#1074#1072#1083':'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 368
+    Top = 272
+    Width = 121
     Height = 13
-    Caption = 'name of file'
+    Caption = #1042#1099#1093#1086#1076#1085#1099#1077' '#1087#1072#1088#1072#1084#1077#1077#1090#1088#1099':'
   end
   object Chart1: TChart
     Left = 24
@@ -89,7 +102,7 @@ object Form1: TForm1
   end
   object Button1: TBitBtn
     Left = 24
-    Top = 392
+    Top = 400
     Width = 137
     Height = 25
     Caption = #1056#1072#1089#1095#1080#1090#1072#1090#1100
@@ -165,74 +178,84 @@ object Form1: TForm1
     LabelSpacing = 3
     TabOrder = 7
   end
-  object Edit3: TEdit
-    Left = 24
-    Top = 360
-    Width = 121
-    Height = 21
-    TabOrder = 8
-  end
   object RadioButton1: TRadioButton
     Left = 24
-    Top = 296
+    Top = 328
     Width = 113
     Height = 17
     Caption = '0.0375...0.0425'
-    TabOrder = 9
+    TabOrder = 8
     OnClick = RadioButton1Click
   end
   object RadioButton2: TRadioButton
     Left = 128
-    Top = 296
+    Top = 328
     Width = 113
     Height = 17
     Caption = '0.025...0.035'
-    TabOrder = 10
+    TabOrder = 9
     OnClick = RadioButton2Click
   end
   object RadioButton3: TRadioButton
     Left = 232
-    Top = 296
+    Top = 328
     Width = 113
     Height = 17
     Caption = '0.0275...0.0325'
-    TabOrder = 11
+    TabOrder = 10
     OnClick = RadioButton3Click
   end
   object RadioButton4: TRadioButton
     Left = 24
-    Top = 320
+    Top = 360
     Width = 113
     Height = 17
     Caption = '0.03...0.05'
-    TabOrder = 12
+    TabOrder = 11
     OnClick = RadioButton4Click
   end
   object RadioButton5: TRadioButton
     Left = 128
-    Top = 320
+    Top = 360
     Width = 113
     Height = 17
     Caption = '0.035...0.045'
-    TabOrder = 13
+    TabOrder = 12
     OnClick = RadioButton5Click
   end
   object RadioButton6: TRadioButton
     Left = 232
-    Top = 320
+    Top = 360
     Width = 113
     Height = 17
     Caption = '0.02...0.04'
-    TabOrder = 14
+    TabOrder = 13
     OnClick = RadioButton6Click
   end
   object Button3: TButton
     Left = 192
-    Top = 392
+    Top = 400
     Width = 137
     Height = 25
     Caption = #1056#1077#1089#1090#1072#1088#1090' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
-    TabOrder = 15
+    TabOrder = 14
     OnClick = Button3Click
+  end
+  object ListBox1: TListBox
+    Left = 368
+    Top = 296
+    Width = 225
+    Height = 129
+    ItemHeight = 13
+    TabOrder = 15
+  end
+  object Button4: TButton
+    Left = 504
+    Top = 264
+    Width = 75
+    Height = 25
+    Caption = #1055#1086#1082#1072#1079#1072#1090#1100
+    TabOrder = 16
+    OnClick = Button4Click
   end
 end

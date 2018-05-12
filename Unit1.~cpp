@@ -4,6 +4,7 @@
 #include <math.h>
 #include <conio.h>
 #include <fstream>
+#include <iostream.h>
 #include "ShellAPI.h"
 #pragma hdrstop
 #include <stdio.h>
@@ -22,9 +23,7 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
-int k,l;
-AnsiString str=Edit3->Text;
-FILE *myfile;
+   int k,l;
 
    A=1;
    Rmax=0;
@@ -77,25 +76,39 @@ FILE *myfile;
                    }
    l=0;
 
-  myfile = fopen(Edit3->Text.c_str(), "w");
+  Fz = fopen(File_Zap,"ab"); 
+  myfile = fopen(str.c_str(), "w");
 
   if(Wp13[0]<Wp13[1])
                         {
+                        Zap[l].s_x = Wp13[0];
+                        Zap[l].s_y = Wp3[0];
+                        Zap[l].s_nom = l;
+                        fwrite(&Zap[l], size, 1, Fz); //записывам итый элемент в байтах
                         fprintf(myfile, "%lf %lf %d\n", Wp13[0], Wp3[0], l);
                         l=l+1;
                         }
   for(k=1;k<Rb-1;k++)
         if((Wp13[k]<Wp13[k-1]) && (Wp13[k]<Wp13[k+1]))
                         {
+                        Zap[l].s_x = Wp13[k];
+                        Zap[l].s_y = Wp3[k];
+                        Zap[l].s_nom = l;
+                        fwrite(&Zap[l], size, 1, Fz); //записывам итый элемент в байтах
                         fprintf(myfile, "%lf %lf %d\n", Wp13[k], Wp3[k], l);
                         l=l+1;
                         }
   if(Wp13[Rb-1]<Wp13[Rb-2])
                         {
+                        Zap[l].s_x = Wp13[Rb-1];
+                        Zap[l].s_y = Wp3[Rb-1];
+                        Zap[l].s_nom = l;
+                        fwrite(&Zap[l], size, 1, Fz); //записывам итый элемент в байтах
                         fprintf(myfile, "%lf %lf %d\n", Wp13[Rb-1], Wp3[Rb-1], l);
                         l=l+1;
                         }
    fclose(myfile);
+   fclose(Fz);
 
 }
 //---------------------------------------------------------------------------
@@ -178,6 +191,7 @@ void __fastcall TForm1::RadioButton1Click(TObject *Sender)
 {
 if(RadioButton1->Checked)
         {
+        str="rez1.txt";
         x1=0.0374999999999;
         x2=0.04250000001;
         }
@@ -188,6 +202,7 @@ void __fastcall TForm1::RadioButton2Click(TObject *Sender)
 {
 if(RadioButton2->Checked)
         {
+        str="rez2.txt";
         x1=0.0249999999999;
         x2=0.03500000001;
         }
@@ -198,6 +213,7 @@ void __fastcall TForm1::RadioButton3Click(TObject *Sender)
 {
 if(RadioButton3->Checked)
         {
+        str="rez3.txt";
         x1=0.0274999999999;
         x2=0.03250000001;
         }
@@ -208,6 +224,7 @@ void __fastcall TForm1::RadioButton4Click(TObject *Sender)
 {
 if(RadioButton4->Checked)
         {
+        str="rez4.txt";
         x1=0.0299999999999;
         x2=0.05000000001;
         }
@@ -218,6 +235,7 @@ void __fastcall TForm1::RadioButton5Click(TObject *Sender)
 {
 if(RadioButton5->Checked)
         {
+        str="rez5.txt";
         x1=0.0349999999999;
         x2=0.04500000001;
         }
@@ -228,6 +246,7 @@ void __fastcall TForm1::RadioButton6Click(TObject *Sender)
 {
 if(RadioButton6->Checked)
         {
+        str="rez6.txt";
         x1=0.0199999999999;
         x2=0.04000000001;
         }
@@ -238,6 +257,25 @@ void __fastcall TForm1::Button3Click(TObject *Sender)
 {
 ShellExecute(0,0,"Project1.exe",0,0,SW_SHOW); //Запускаем новую копию
 Close(); //Закрываем старую
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button4Click(TObject *Sender)
+{
+if ((Fz=fopen(File_Zap,"rb"))==NULL)
+        {
+        
+        return;
+        }
+int i=0;
+while(1)
+        {
+        if(fread(&Zap[i],size,1,Fz)==0)//считывает итый элемент в байтах и сравнивает с 0
+        break;
+        ListBox1->Items->Text = FloatToStr(Zap[i].s_x);
+        i=i+1;
+        }
+fclose(Fz);
 }
 //---------------------------------------------------------------------------
 

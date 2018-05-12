@@ -29,8 +29,6 @@ __published:	// IDE-managed Components
         TLabeledEdit *ApogrEdit;
         TLabeledEdit *WpogrEdit;
         TLabeledEdit *VpogrEdit;
-        TEdit *Edit3;
-        TLabel *Label3;
         TRadioButton *RadioButton1;
         TRadioButton *RadioButton2;
         TRadioButton *RadioButton3;
@@ -38,6 +36,10 @@ __published:	// IDE-managed Components
         TRadioButton *RadioButton5;
         TRadioButton *RadioButton6;
         TButton *Button3;
+        TLabel *Label1;
+        TListBox *ListBox1;
+        TLabel *Label2;
+        TButton *Button4;
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
         void __fastcall RadioButton1Click(TObject *Sender);
@@ -47,6 +49,7 @@ __published:	// IDE-managed Components
         void __fastcall RadioButton5Click(TObject *Sender);
         void __fastcall RadioButton6Click(TObject *Sender);
         void __fastcall Button3Click(TObject *Sender);
+        void __fastcall Button4Click(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations
@@ -59,6 +62,17 @@ int V, N, W, M, R, R1, Rb, Rmax, R2;
 double Wsp[100], Wo[100];
 double Wp0[1000], Wp10[1000], Wp1[1000], Wp11[1000], Wp2[1000], Wp12[1000],
               Wp3[1000], Wp13[1000], Wpb[1000], Wpmax[1000], Wpmin[1000], Wp[1000];
+
+AnsiString str;   //переменная для названия теекстового документа
+
+struct TZap{
+     double s_x, s_y, s_nom;
+     } Zap[200];
+
+        int size = sizeof(TZap);
+        FILE *myfile, *Fz;
+        char File_Zap[] = "zapisi.dat";
+
 
 void FrequencyWSP()
 {
@@ -222,5 +236,6 @@ void MAXMIN()
                 }
 
 }
+
 //---------------------------------------------------------------------------
 #endif
