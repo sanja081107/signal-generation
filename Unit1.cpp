@@ -253,28 +253,78 @@ if(RadioButton6->Checked)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button3Click(TObject *Sender)
+void __fastcall TForm1::Button3Click(TObject *Sender)//перезапускает программу
 {
-ShellExecute(0,0,"Project1.exe",0,0,SW_SHOW); //Запускаем новую копию
-Close(); //Закрываем старую
+ShellExecute(0,0,"Project1.exe",0,0,SW_SHOW);        //Запускаем новую копию
+Close();                                             //Закрываем старую
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button4Click(TObject *Sender)
+void __fastcall TForm1::Button4Click(TObject *Sender)//вывод данных в листбокс
 {
+ListBox1->Items->Text = "";
+
 if ((Fz=fopen(File_Zap,"rb"))==NULL)
         {
-        
+        ListBox1->Items->Text = "Not found";
         return;
         }
 int i=0;
 while(1)
         {
-        if(fread(&Zap[i],size,1,Fz)==0)//считывает итый элемент в байтах и сравнивает с 0
+        if(fread(&Zap[i],size,1,Fz)==0) //считывает итый элемент в байтах и сравнивает с 0
         break;
-        ListBox1->Items->Text = FloatToStr(Zap[i].s_x);
+        ListBox1->Items->Text = ListBox1->Items->Text + FloatToStr(Zap[i].s_nom) +
+        "  " + FloatToStr(Zap[i].s_x) + "\n";
+        Sleep(10);                      //шаг отрисовки от 0 до 1000
+        Application->ProcessMessages(); //отрисовывает все изменения в форме
         i=i+1;
         }
+fclose(Fz);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button5Click(TObject *Sender)//создает пустой документ
+{
+if ((Fz=fopen(File_Zap,"wb"))==NULL)
+        {
+        return;
+        }
+fclose(Fz);
+ListBox1->Items->Text = "Create a new file 'zapisi.dat'";
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button6Click(TObject *Sender)//сортировка массива
+{
+//ListBox1->Items->Text=""; //очистка окна
+
+int kol=0, i=0, k;
+
+ListBox1->Items->Text = "";
+
+if ((Fz=fopen(File_Zap,"rb"))==NULL)
+        {
+        ListBox1->Items->Text = "Not found";
+        return;
+        }
+while(1) {
+        if(fread(&Zap[i],size,1,Fz)==0) break;
+        kol++;
+        i=i+1;
+}
+//ListBox1->Items->Text = IntToStr(kol);
+for(i=0; i<kol; i++)
+   for(k=i+1; k<kol; k++)
+       if ((Zap[k].s_x)<(Zap[i].s_x)) {
+         p=Zap[k];          // Обмен Zap[k] и Zap[i]
+         Zap[k]=Zap[i];
+         Zap[i]=p;
+       }
+for(i=0; i<kol; i++)
+ListBox1->Items->Text = ListBox1->Items->Text + FloatToStr(Zap[i].s_nom) +
+"  " + FloatToStr(Zap[i].s_x) + "\n";
+
 fclose(Fz);
 }
 //---------------------------------------------------------------------------

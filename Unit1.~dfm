@@ -29,9 +29,9 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 368
     Top = 272
-    Width = 121
+    Width = 55
     Height = 13
-    Caption = #1042#1099#1093#1086#1076#1085#1099#1077' '#1087#1072#1088#1072#1084#1077#1077#1090#1088#1099':'
+    Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090':'
   end
   object Chart1: TChart
     Left = 24
@@ -103,7 +103,7 @@ object Form1: TForm1
   object Button1: TBitBtn
     Left = 24
     Top = 400
-    Width = 137
+    Width = 97
     Height = 25
     Caption = #1056#1072#1089#1095#1080#1090#1072#1090#1100
     TabOrder = 1
@@ -233,11 +233,11 @@ object Form1: TForm1
     OnClick = RadioButton6Click
   end
   object Button3: TButton
-    Left = 192
+    Left = 136
     Top = 400
-    Width = 137
+    Width = 97
     Height = 25
-    Caption = #1056#1077#1089#1090#1072#1088#1090' '#1087#1088#1086#1075#1088#1072#1084#1084#1099
+    Caption = #1057#1073#1088#1086#1089' '#1079#1085#1072#1095#1085#1080#1081
     TabOrder = 14
     OnClick = Button3Click
   end
@@ -250,12 +250,30 @@ object Form1: TForm1
     TabOrder = 15
   end
   object Button4: TButton
-    Left = 504
+    Left = 432
     Top = 264
     Width = 75
     Height = 25
     Caption = #1055#1086#1082#1072#1079#1072#1090#1100
     TabOrder = 16
     OnClick = Button4Click
+  end
+  object Button5: TButton
+    Left = 248
+    Top = 400
+    Width = 97
+    Height = 25
+    Caption = #1054#1095#1080#1089#1090#1080#1090#1100' '#1082#1101#1096
+    TabOrder = 17
+    OnClick = Button5Click
+  end
+  object Button6: TButton
+    Left = 512
+    Top = 264
+    Width = 75
+    Height = 25
+    Caption = #1057#1086#1088#1090#1080#1088#1086#1074#1072#1090#1100
+    TabOrder = 18
+    OnClick = Button6Click
   end
 end
