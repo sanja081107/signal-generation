@@ -241,5 +241,15 @@ void MAXMIN()
 
 }
 
+void MAXMIN1()
+{
+ int i;
+
+   for(i=0;i<Rb;i++)
+        {
+         if(Wpmax[i]==0) Wpmax[i]=Wpb[i];
+         if(Wpmin[i]==0) Wpmin[i]=Wpb[i];
+        }
+}
 //---------------------------------------------------------------------------
 #endif

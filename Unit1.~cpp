@@ -27,8 +27,8 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 
    A=1;
    Rmax=0;
-   d=0.00001;
-   while(A>=0.5){
+   d=0.000001;
+   while(A>=0.4999999999999){
              FrequencyWSP();
              FrequencyWO();
              FrequencyP();
@@ -57,7 +57,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
                     }
                }
    A=Amax-d;
-   while(A>=0.5){
+   while(A>=0.4999999999999){
            FrequencyWSP();
            FrequencyWO();
            FrequencyP();
@@ -65,7 +65,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
            MAXMIN();
            A=A-d;
                 }
-  void MAXMIN1();
+  MAXMIN1();
   for(k=0;k<Rb;k++){
         Wp3[k]=(Wpmax[k]+Wpmin[k])/2;
         Wp13[k]=((Wpmax[k]-Wp3[k])/Wp3[k])*100;
@@ -215,7 +215,7 @@ if(RadioButton3->Checked)
         {
         str="rez3.txt";
         x1=0.0274999999999;
-        x2=0.03250000001;
+        x2=0.0325000000001;
         }
 }
 //---------------------------------------------------------------------------
