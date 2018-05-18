@@ -1,6 +1,9 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <cstdlib>
+#include <cmath>
+#include <limits>
 #include <math.h>
 #include <conio.h>
 #include <fstream>
@@ -81,8 +84,8 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 
   if(Wp13[0]<Wp13[1])
                         {
-                        Zap[l].s_x = Wp13[0];
-                        Zap[l].s_y = Wp3[0];
+                        Zap[l].s_y = Wp13[0];
+                        Zap[l].s_x = Wp3[0];
                         Zap[l].s_nom = l;
                         fwrite(&Zap[l], size, 1, Fz); //записывам итый элемент в байтах
                         fprintf(myfile, "%lf %lf %d\n", Wp13[0], Wp3[0], l);
@@ -91,8 +94,8 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
   for(k=1;k<Rb-1;k++)
         if((Wp13[k]<Wp13[k-1]) && (Wp13[k]<Wp13[k+1]))
                         {
-                        Zap[l].s_x = Wp13[k];
-                        Zap[l].s_y = Wp3[k];
+                        Zap[l].s_y = Wp13[k];
+                        Zap[l].s_x = Wp3[k];
                         Zap[l].s_nom = l;
                         fwrite(&Zap[l], size, 1, Fz); //записывам итый элемент в байтах
                         fprintf(myfile, "%lf %lf %d\n", Wp13[k], Wp3[k], l);
@@ -100,8 +103,8 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
                         }
   if(Wp13[Rb-1]<Wp13[Rb-2])
                         {
-                        Zap[l].s_x = Wp13[Rb-1];
-                        Zap[l].s_y = Wp3[Rb-1];
+                        Zap[l].s_y = Wp13[Rb-1];
+                        Zap[l].s_x = Wp3[Rb-1];
                         Zap[l].s_nom = l;
                         fwrite(&Zap[l], size, 1, Fz); //записывам итый элемент в байтах
                         fprintf(myfile, "%lf %lf %d\n", Wp13[Rb-1], Wp3[Rb-1], l);
@@ -297,11 +300,10 @@ ListBox1->Items->Text = "Create a new file 'zapisi.dat'";
 
 void __fastcall TForm1::Button6Click(TObject *Sender)//сортировка массива
 {
-//ListBox1->Items->Text=""; //очистка окна
 
 int kol=0, i=0, k;
 
-ListBox1->Items->Text = "";
+ListBox1->Items->Text = "";//очистка окна
 
 if ((Fz=fopen(File_Zap,"rb"))==NULL)
         {
@@ -326,6 +328,97 @@ ListBox1->Items->Text = ListBox1->Items->Text + FloatToStr(Zap[i].s_nom) +
 "  " + FloatToStr(Zap[i].s_x) + "\n";
 
 fclose(Fz);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button7Click(TObject *Sender)
+{
+int kol=0, i=0, kk;
+
+if ((Fz=fopen(File_Zap,"rb"))==NULL)
+        {
+        ListBox1->Items->Text = "Not found";
+        return;
+        }
+while(1) {
+        if(fread(&Zap[i],size,1,Fz)==0) break;
+        kol++;
+        i=i+1;
+}
+for(i=0; i<kol; i++)
+   for(kk=i+1; kk<kol; kk++)
+       if ((Zap[kk].s_x)<(Zap[i].s_x)) {
+         p=Zap[kk];          // Обмен Zap[k] и Zap[i]
+         Zap[kk]=Zap[i];
+         Zap[i]=p;
+       }
+
+double a[1000],b[1000],c[1000],y[1000],x[1000],
+h[1000],d[1000],k[1000],l[1000],r[1000],s[1000];
+int n=kol;
+
+//------------Вывод X и Y
+for(i=0; i<n; i++)
+   {
+   x[i]=Zap[i].s_x;
+   y[i]=Zap[i].s_y;
+   }
+Series1->Clear();
+Series2->Clear();
+Series3->Clear();
+Series4->Clear();
+
+fclose(Fz);
+
+//------------Нахождение коэффициентов
+ for(i=2; i<n; i++)  {
+    k[1]=0;    
+    l[1]=0;
+ 
+    h[i-1]=x[i-1]-x[i-2];
+    h[i]=x[i]-x[i-1];
+ 
+    s[i]=2*(h[i]+h[i-1]);
+ 
+    r[i]=3*((y[i]-y[i-1])/h[i]-(y[i-1]-y[i-2])/h[i-1]);
+ 
+    k[i]=(r[i]-h[i-1]*k[i-1])/(s[i]-h[i-1]*l[i-1]);
+ 
+    l[i]=h[i]/(s[i]-h[i-1]*l[i-1]);
+    }
+
+   c[n-1]=k[n-1];
+   for(i=n-2; i>=2; i--)
+   c[i]=k[i]-l[i]*c[i+1];
+ 
+ 
+  for(i=1; i<n; i++)  {
+  h[i]=x[i]-x[i-1];
+  a[i]=y[i-1];
+  b[i]=(y[i]-y[i-1])/h[i]-h[i]*(2*c[i]+c[i+1])/3;
+  d[i]=(c[i+1]-c[i])/(3*h[i]);
+  }
+
+i=1;
+float x1=x[0];
+float x2;
+float y2=0;
+ 
+      do {
+        do {
+        y2=a[i]+b[i]*(x1-x[i-1])+c[i]*pow((x1-x[i-1]),2)+d[i]*pow((x1-x[i-1]),3);
+        Series1->AddXY(x1, y2);
+        x1=x1+0.00001;
+        x2=static_cast<float>(x1);
+            } while (x2<x[i]);
+ 
+      i++;
+      x1=x[i-1];
+       } while (i!=n-1);
+ 
+    for(i=0; i<=n-1; i++)
+    Series2->AddXY(x[i],y[i]);
+
 }
 //---------------------------------------------------------------------------
 
