@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 478
-  Top = 252
+  Left = 653
+  Top = 213
   Width = 670
   Height = 480
   Caption = 'Form1'
@@ -42,9 +42,10 @@ object Form1: TForm1
     BackWall.Brush.Style = bsClear
     Title.Text.Strings = (
       'TChart')
+    View3D = False
     TabOrder = 0
     object Series1: TFastLineSeries
-      Marks.ArrowLength = 8
+      Marks.ArrowLength = 30
       Marks.Visible = False
       SeriesColor = clRed
       LinePen.Color = clRed
@@ -277,9 +278,9 @@ object Form1: TForm1
     OnClick = Button6Click
   end
   object Button7: TButton
-    Left = 336
+    Left = 352
     Top = 232
-    Width = 81
+    Width = 65
     Height = 25
     Caption = #1057#1087#1083#1072#1081#1085
     TabOrder = 19

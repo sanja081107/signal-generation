@@ -30,8 +30,8 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 
    A=1;
    Rmax=0;
-   d=0.000001;
-   while(A>=0.4999999999999){
+   d=0.00001;
+   while(A>=0.5){
              FrequencyWSP();
              FrequencyWO();
              FrequencyP();
@@ -60,7 +60,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
                     }
                }
    A=Amax-d;
-   while(A>=0.4999999999999){
+   while(A>=0.5){
            FrequencyWSP();
            FrequencyWO();
            FrequencyP();
@@ -195,8 +195,8 @@ void __fastcall TForm1::RadioButton1Click(TObject *Sender)
 if(RadioButton1->Checked)
         {
         str="rez1.txt";
-        x1=0.0374999999999;
-        x2=0.04250000001;
+        x01=0.0374999999999;
+        x02=0.0425000000001;
         }
 }
 //---------------------------------------------------------------------------
@@ -206,8 +206,8 @@ void __fastcall TForm1::RadioButton2Click(TObject *Sender)
 if(RadioButton2->Checked)
         {
         str="rez2.txt";
-        x1=0.0249999999999;
-        x2=0.03500000001;
+        x01=0.0249999999999;
+        x02=0.0350000000001;
         }
 }
 //---------------------------------------------------------------------------
@@ -217,8 +217,8 @@ void __fastcall TForm1::RadioButton3Click(TObject *Sender)
 if(RadioButton3->Checked)
         {
         str="rez3.txt";
-        x1=0.0274999999999;
-        x2=0.0325000000001;
+        x01=0.0274999999999;
+        x02=0.0325000000001;
         }
 }
 //---------------------------------------------------------------------------
@@ -228,8 +228,8 @@ void __fastcall TForm1::RadioButton4Click(TObject *Sender)
 if(RadioButton4->Checked)
         {
         str="rez4.txt";
-        x1=0.0299999999999;
-        x2=0.05000000001;
+        x01=0.0299999999999;
+        x02=0.0500000000001;
         }
 }
 //---------------------------------------------------------------------------
@@ -239,8 +239,8 @@ void __fastcall TForm1::RadioButton5Click(TObject *Sender)
 if(RadioButton5->Checked)
         {
         str="rez5.txt";
-        x1=0.0349999999999;
-        x2=0.04500000001;
+        x01=0.0349999999999;
+        x02=0.0450000000001;
         }
 }
 //---------------------------------------------------------------------------
@@ -250,8 +250,8 @@ void __fastcall TForm1::RadioButton6Click(TObject *Sender)
 if(RadioButton6->Checked)
         {
         str="rez6.txt";
-        x1=0.0199999999999;
-        x2=0.04000000001;
+        x01=0.0199999999999;
+        x02=0.0400000000001;
         }
 }
 //---------------------------------------------------------------------------
@@ -272,6 +272,17 @@ if ((Fz=fopen(File_Zap,"rb"))==NULL)
         ListBox1->Items->Text = "Not found";
         return;
         }
+//---------проверка на пустой файл
+ifstream h("zapisi.dat");
+if (h.is_open())
+       {
+        std::string str;
+        std::getline(h, str);
+        if (h.eof() && str.empty()){
+                ListBox1->Items->Text = "Error";//если файл пуст выдает ошибку
+                fclose(Fz);}
+                else
+                {
 int i=0;
 while(1)
         {
@@ -284,6 +295,8 @@ while(1)
         i=i+1;
         }
 fclose(Fz);
+                }
+        }
 }
 //---------------------------------------------------------------------------
 
@@ -310,11 +323,22 @@ if ((Fz=fopen(File_Zap,"rb"))==NULL)
         ListBox1->Items->Text = "Not found";
         return;
         }
+//---------проверка на пустой файл
+ifstream h("zapisi.dat");
+     if (h.is_open())
+        {
+        std::string str;
+        std::getline(h, str);
+                if (h.eof() && str.empty()){
+                        ListBox1->Items->Text = "Error";//если файл пуст выдает ошибку
+                        fclose(Fz);}
+                        else
+                        {
 while(1) {
         if(fread(&Zap[i],size,1,Fz)==0) break;
         kol++;
         i=i+1;
-}
+        }
 //ListBox1->Items->Text = IntToStr(kol);
 for(i=0; i<kol; i++)
    for(k=i+1; k<kol; k++)
@@ -326,8 +350,9 @@ for(i=0; i<kol; i++)
 for(i=0; i<kol; i++)
 ListBox1->Items->Text = ListBox1->Items->Text + FloatToStr(Zap[i].s_nom) +
 "  " + FloatToStr(Zap[i].s_x) + "\n";
-
 fclose(Fz);
+                        }
+        }
 }
 //---------------------------------------------------------------------------
 
@@ -340,14 +365,26 @@ if ((Fz=fopen(File_Zap,"rb"))==NULL)
         ListBox1->Items->Text = "Not found";
         return;
         }
+//---------проверка на пустой файл
+ifstream h("zapisi.dat");
+if (h.is_open())
+       {
+        std::string str;
+        std::getline(h, str);
+        if (h.eof() && str.empty()){
+                ListBox1->Items->Text = "Error";//если файл пуст выдает ошибку
+                fclose(Fz);}
+                else
+                {
 while(1) {
         if(fread(&Zap[i],size,1,Fz)==0) break;
         kol++;
         i=i+1;
-}
+        }
 for(i=0; i<kol; i++)
    for(kk=i+1; kk<kol; kk++)
-       if ((Zap[kk].s_x)<(Zap[i].s_x)) {
+       if ((Zap[kk].s_x)<(Zap[i].s_x))
+       {
          p=Zap[kk];          // Обмен Zap[k] и Zap[i]
          Zap[kk]=Zap[i];
          Zap[i]=p;
@@ -392,7 +429,8 @@ fclose(Fz);
    c[i]=k[i]-l[i]*c[i+1];
  
  
-  for(i=1; i<n; i++)  {
+  for(i=1; i<n; i++)
+  {
   h[i]=x[i]-x[i-1];
   a[i]=y[i-1];
   b[i]=(y[i]-y[i-1])/h[i]-h[i]*(2*c[i]+c[i+1])/3;
@@ -400,25 +438,26 @@ fclose(Fz);
   }
 
 i=1;
-float x1=x[0];
-float x2;
-float y2=0;
+double x1=x[0];
+double x2;
+double y2=0;
  
       do {
         do {
         y2=a[i]+b[i]*(x1-x[i-1])+c[i]*pow((x1-x[i-1]),2)+d[i]*pow((x1-x[i-1]),3);
         Series1->AddXY(x1, y2);
-        x1=x1+0.00001;
-        x2=static_cast<float>(x1);
+        x1=x1+0.0000001;
+        x2=static_cast<double>(x1);
             } while (x2<x[i]);
  
       i++;
       x1=x[i-1];
-       } while (i!=n-1);
+       } while (i!=n);
  
-    for(i=0; i<=n-1; i++)
+    for(i=0; i<n; i++)
     Series2->AddXY(x[i],y[i]);
-
+                }
+        }
 }
 //---------------------------------------------------------------------------
 

@@ -63,7 +63,7 @@ public:		// User declarations
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;
-double A, Fwsp, Fwo, Fp, d, Amax, x1, x2;
+double A, Fwsp, Fwo, Fp, d, Amax, x01, x02;
 int V, N, W, M, R, R1, Rb, Rmax, R2;
 double Wsp[100], Wo[100];
 double Wp0[1000], Wp10[1000], Wp1[1000], Wp11[1000], Wp2[1000], Wp12[1000],
@@ -87,14 +87,14 @@ void FrequencyWSP()
    V=1;
    Fwsp=A/V;
    N=0; i=0;
-   while(Fwsp>=x1)
+   while(Fwsp>=x01)
          {
-                if(Fwsp<=x2)
-                                {
-                           Wsp[i]=Fwsp;
-                           i=i+1;
-                           N=N+1;
-                                }
+         if(Fwsp<=x02)
+                {
+                Wsp[i]=Fwsp;
+                i=i+1;
+                N=N+1;
+                }
           V=V+1;
           Fwsp=A/V;
          }
