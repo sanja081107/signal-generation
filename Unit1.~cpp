@@ -359,7 +359,7 @@ fclose(Fz);
 void __fastcall TForm1::Button7Click(TObject *Sender)
 {
 int kol=0, i=0, kk;
-
+//---------проверка на отсутствие файла
 if ((Fz=fopen(File_Zap,"rb"))==NULL)
         {
         ListBox1->Items->Text = "Not found";
@@ -376,6 +376,7 @@ if (h.is_open())
                 fclose(Fz);}
                 else
                 {
+
 while(1) {
         if(fread(&Zap[i],size,1,Fz)==0) break;
         kol++;
@@ -400,6 +401,7 @@ for(i=0; i<n; i++)
    x[i]=Zap[i].s_x;
    y[i]=Zap[i].s_y;
    }
+
 Series1->Clear();
 Series2->Clear();
 Series3->Clear();
@@ -441,23 +443,64 @@ i=1;
 double x1=x[0];
 double x2;
 double y2=0;
+int j=0;
  
       do {
         do {
         y2=a[i]+b[i]*(x1-x[i-1])+c[i]*pow((x1-x[i-1]),2)+d[i]*pow((x1-x[i-1]),3);
         Series1->AddXY(x1, y2);
-        x1=x1+0.0000001;
+        x1=x1+0.0001;
+        //---------------
+                MinX[j]=x1;
+                MinY[j]=y2;
+                j++;
+        //---------------
         x2=static_cast<double>(x1);
             } while (x2<x[i]);
- 
-      i++;
-      x1=x[i-1];
-       } while (i!=n);
+                i++;
+                x1=x[i-1];
+         } while (i!=n);
  
     for(i=0; i<n; i++)
     Series2->AddXY(x[i],y[i]);
+
+int ColMin = 0;
+for(i=0; i<j; i++)
+   if(MinY[i]<MinY[i-1] && MinY[i]<MinY[i+1])
+        {
+        MinXX[ColMin]=MinX[i];
+        MinYY[ColMin]=MinY[i];
+        ColMin=ColMin+1;
+        }
+for(i=0; i<ColMin; i++)
+    Series3->AddXY(MinXX[i],MinYY[i]);
                 }
         }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button8Click(TObject *Sender)
+{
+//---------Масштаб начало
+double a1=0, b1=0, a1min=0.07, b1min=0;
+if(ScaleX->Text!="") a1=StrToFloat(ScaleX->Text);  //максимальное значние по Х
+if(ScaleXmin->Text!="") a1min=StrToFloat(ScaleXmin->Text);  //миимальное значние по Х
+if(ScaleY->Text!="") b1=StrToFloat(ScaleY->Text);  //максимальное значние по У
+if(ScaleYmin->Text!="") b1min=StrToFloat(ScaleYmin->Text);  //миимальное значние по Х
+
+if(a1>0 && a1<=10000 && a1min>=0 && a1min<=10000)
+        {
+        Chart1->BottomAxis->Automatic=false;
+        Chart1->BottomAxis->Maximum = a1;
+        Chart1->BottomAxis->Minimum = a1min;
+        }
+if(b1>0 && b1<=10000 && b1min>=0 && b1min<=10000)
+        {
+        Chart1->LeftAxis->Automatic=false;
+        Chart1->LeftAxis->Maximum = b1;
+        Chart1->LeftAxis->Minimum = b1min;
+        }
+//---------Масштаб конец
 }
 //---------------------------------------------------------------------------
 

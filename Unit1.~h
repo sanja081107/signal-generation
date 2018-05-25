@@ -43,6 +43,23 @@ __published:	// IDE-managed Components
         TButton *Button5;
         TButton *Button6;
         TButton *Button7;
+        TEdit *ScaleY;
+        TLabel *Label3;
+        TEdit *ScaleX;
+        TLabel *Label4;
+        TLabel *Label5;
+        TLabel *Label6;
+        TLabel *Label7;
+        TLabel *Label8;
+        TLabel *Label9;
+        TLabel *Label10;
+        TLabel *Label11;
+        TLabel *Label12;
+        TStaticText *StaticText2;
+        TButton *Button8;
+        TEdit *ScaleXmin;
+        TEdit *ScaleYmin;
+
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
         void __fastcall RadioButton1Click(TObject *Sender);
@@ -56,6 +73,7 @@ __published:	// IDE-managed Components
         void __fastcall Button5Click(TObject *Sender);
         void __fastcall Button6Click(TObject *Sender);
         void __fastcall Button7Click(TObject *Sender);
+        void __fastcall Button8Click(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations
@@ -66,8 +84,9 @@ extern PACKAGE TForm1 *Form1;
 double A, Fwsp, Fwo, Fp, d, Amax, x01, x02;
 int V, N, W, M, R, R1, Rb, Rmax, R2;
 double Wsp[100], Wo[100];
-double Wp0[1000], Wp10[1000], Wp1[1000], Wp11[1000], Wp2[1000], Wp12[1000],
-              Wp3[1000], Wp13[1000], Wpb[1000], Wpmax[1000], Wpmin[1000], Wp[1000];
+double Wp0[1000], Wp10[1000], Wp1[1000], Wp11[1000], Wp2[1000], Wp12[1000],Wp3[1000],
+       Wp13[1000], Wpb[1000], Wpmax[1000], Wpmin[1000], Wp[1000],MinX[1000000],MinY[1000000],
+       MinXX[10000],MinYY[10000];
 
 AnsiString str;   //переменная для названия теекстового документа
 
