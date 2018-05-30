@@ -396,11 +396,17 @@ h[1000],d[1000],k[1000],l[1000],r[1000],s[1000];
 int n=kol;
 
 //------------Вывод X и Y
-for(i=0; i<n; i++)
+int j=0;
+for(i=1; i<n; i++)
    {
-   x[i]=Zap[i].s_x;
-   y[i]=Zap[i].s_y;
+   if((Zap[i].s_x)-(Zap[i-1].s_x)>=0.00001)
+        {
+        x[j]=Zap[i-1].s_x;
+        y[j]=Zap[i-1].s_y;
+        j=j+1;
+        }
    }
+n=j;
 
 Series1->Clear();
 Series2->Clear();
@@ -443,11 +449,11 @@ i=1;
 double x1=x[0];
 double x2;
 double y2=0;
-int j=0;
+j=0;
  
       do {
         do {
-        y2=a[i]+b[i]*(x1-x[i-1])+c[i]*pow((x1-x[i-1]),2)+d[i]*pow((x1-x[i-1]),3);
+        y2=a[i]+b[i]*(x1-x[i-1])+c[i]*pow((x1-x[i-1]), 2)+d[i]*pow((x1-x[i-1]), 3);
         Series1->AddXY(x1, y2);
         x1=x1+0.0001;
         //---------------
@@ -459,7 +465,7 @@ int j=0;
             } while (x2<x[i]);
                 i++;
                 x1=x[i-1];
-         } while (i!=n);
+         } while (i<n);
  
     for(i=0; i<n; i++)
     Series2->AddXY(x[i],y[i]);
@@ -494,7 +500,7 @@ if(a1>0 && a1<=10000 && a1min>=0 && a1min<=10000)
         Chart1->BottomAxis->Maximum = a1;
         Chart1->BottomAxis->Minimum = a1min;
         }
-if(b1>0 && b1<=10000 && b1min>=0 && b1min<=10000)
+if(b1>0 && b1<=10000 && b1min>=-10000 && b1min<=10000)
         {
         Chart1->LeftAxis->Automatic=false;
         Chart1->LeftAxis->Maximum = b1;
