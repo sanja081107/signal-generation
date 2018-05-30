@@ -28,6 +28,12 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 {
    int k,l;
 
+Series1->Clear();
+Series2->Clear();
+Series3->Clear();
+Series4->Clear();
+Series5->Clear();
+
    A=1;
    Rmax=0;
    d=0.00001;
@@ -79,7 +85,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
                    }
    l=0;
 
-  Fz = fopen(File_Zap,"ab"); 
+  Fz = fopen(str2.c_str(),"ab");
   myfile = fopen(str.c_str(), "w");
 
   if(Wp13[0]<Wp13[1])
@@ -195,6 +201,7 @@ void __fastcall TForm1::RadioButton1Click(TObject *Sender)
 if(RadioButton1->Checked)
         {
         str="rez1.txt";
+        str2="zapisi1.dat";
         x01=0.0374999999999;
         x02=0.0425000000001;
         }
@@ -206,6 +213,7 @@ void __fastcall TForm1::RadioButton2Click(TObject *Sender)
 if(RadioButton2->Checked)
         {
         str="rez2.txt";
+        str2="zapisi2.dat";
         x01=0.0249999999999;
         x02=0.0350000000001;
         }
@@ -217,6 +225,7 @@ void __fastcall TForm1::RadioButton3Click(TObject *Sender)
 if(RadioButton3->Checked)
         {
         str="rez3.txt";
+        str2="zapisi3.dat";
         x01=0.0274999999999;
         x02=0.0325000000001;
         }
@@ -228,6 +237,7 @@ void __fastcall TForm1::RadioButton4Click(TObject *Sender)
 if(RadioButton4->Checked)
         {
         str="rez4.txt";
+        str2="zapisi4.dat";
         x01=0.0299999999999;
         x02=0.0500000000001;
         }
@@ -239,6 +249,7 @@ void __fastcall TForm1::RadioButton5Click(TObject *Sender)
 if(RadioButton5->Checked)
         {
         str="rez5.txt";
+        str2="zapisi5.dat";
         x01=0.0349999999999;
         x02=0.0450000000001;
         }
@@ -250,6 +261,7 @@ void __fastcall TForm1::RadioButton6Click(TObject *Sender)
 if(RadioButton6->Checked)
         {
         str="rez6.txt";
+        str2="zapisi6.dat";
         x01=0.0199999999999;
         x02=0.0400000000001;
         }
@@ -267,13 +279,13 @@ void __fastcall TForm1::Button4Click(TObject *Sender)//вывод данных в листбокс
 {
 ListBox1->Items->Text = "";
 
-if ((Fz=fopen(File_Zap,"rb"))==NULL)
+if ((Fz=fopen(str2.c_str(),"rb"))==NULL)
         {
         ListBox1->Items->Text = "Not found";
         return;
         }
 //---------проверка на пустой файл
-ifstream h("zapisi.dat");
+ifstream h(str2.c_str());
 if (h.is_open())
        {
         std::string str;
@@ -302,11 +314,16 @@ fclose(Fz);
 
 void __fastcall TForm1::Button5Click(TObject *Sender)//создает пустой документ
 {
-if ((Fz=fopen(File_Zap,"wb"))==NULL)
+if ((Fz=fopen(str2.c_str(),"wb"))==NULL)
         {
         return;
         }
 fclose(Fz);
+if ((Fs=fopen(File_Zap,"wb"))==NULL)
+        {
+        return;
+        }
+fclose(Fs);
 ListBox1->Items->Text = "Create a new file 'zapisi.dat'";
 }
 //---------------------------------------------------------------------------
@@ -314,11 +331,32 @@ ListBox1->Items->Text = "Create a new file 'zapisi.dat'";
 void __fastcall TForm1::Button6Click(TObject *Sender)//сортировка массива
 {
 
-int kol=0, i=0, k;
+int kol=0, i=0, j, k;
 
 ListBox1->Items->Text = "";//очистка окна
 
-if ((Fz=fopen(File_Zap,"rb"))==NULL)
+Fs = fopen(File_Zap,"wb");
+
+for(j=0;j<6;j++)
+{
+if(j==0) Fz = fopen("zapisi1.dat","rb");
+if(j==1) Fz = fopen("zapisi2.dat","rb");
+if(j==2) Fz = fopen("zapisi3.dat","rb");
+if(j==3) Fz = fopen("zapisi4.dat","rb");
+if(j==4) Fz = fopen("zapisi5.dat","rb");
+if(j==5) Fz = fopen("zapisi6.dat","rb");
+i=0;
+while(1){
+        if(fread(&Zap[i],size,1,Fz)==0) break;
+        fwrite(&Zap[i],size,1,Fs);
+        i=i+1;
+        }
+}
+
+fclose(Fs);
+fclose(Fz);
+
+if ((Fs=fopen(File_Zap,"rb"))==NULL)
         {
         ListBox1->Items->Text = "Not found";
         return;
@@ -331,11 +369,12 @@ ifstream h("zapisi.dat");
         std::getline(h, str);
                 if (h.eof() && str.empty()){
                         ListBox1->Items->Text = "Error";//если файл пуст выдает ошибку
-                        fclose(Fz);}
+                        fclose(Fs);}
                         else
                         {
-while(1) {
-        if(fread(&Zap[i],size,1,Fz)==0) break;
+i=0;
+while(1){
+        if(fread(&Zap[i],size,1,Fs)==0) break;
         kol++;
         i=i+1;
         }
@@ -350,33 +389,40 @@ for(i=0; i<kol; i++)
 for(i=0; i<kol; i++)
 ListBox1->Items->Text = ListBox1->Items->Text + FloatToStr(Zap[i].s_nom) +
 "  " + FloatToStr(Zap[i].s_x) + "\n";
-fclose(Fz);
+fclose(Fs);
                         }
         }
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TForm1::Button7Click(TObject *Sender)
+void __fastcall TForm1::Button7Click(TObject *Sender)//сплайн выбранного интервала
 {
 int kol=0, i=0, kk;
 //---------проверка на отсутствие файла
-if ((Fz=fopen(File_Zap,"rb"))==NULL)
+if ((Fz=fopen(str2.c_str(),"rb"))==NULL)
         {
         ListBox1->Items->Text = "Not found";
         return;
         }
 //---------проверка на пустой файл
-ifstream h("zapisi.dat");
+ifstream h(str2.c_str());
 if (h.is_open())
        {
         std::string str;
         std::getline(h, str);
-        if (h.eof() && str.empty()){
+        if (h.eof() && str.empty())
+                {
                 ListBox1->Items->Text = "Error";//если файл пуст выдает ошибку
-                fclose(Fz);}
+                Series1->Clear();
+                Series2->Clear();
+                Series3->Clear();
+                Series4->Clear();
+                Series5->Clear();
+                fclose(Fz);
+                }
                 else
                 {
-
+ListBox1->Items->Text = "";
 while(1) {
         if(fread(&Zap[i],size,1,Fz)==0) break;
         kol++;
@@ -412,6 +458,7 @@ Series1->Clear();
 Series2->Clear();
 Series3->Clear();
 Series4->Clear();
+Series5->Clear();
 
 fclose(Fz);
 
@@ -419,7 +466,7 @@ fclose(Fz);
  for(i=2; i<n; i++)  {
     k[1]=0;    
     l[1]=0;
- 
+
     h[i-1]=x[i-1]-x[i-2];
     h[i]=x[i]-x[i-1];
  
@@ -435,7 +482,7 @@ fclose(Fz);
    c[n-1]=k[n-1];
    for(i=n-2; i>=2; i--)
    c[i]=k[i]-l[i]*c[i+1];
- 
+
  
   for(i=1; i<n; i++)
   {
@@ -466,9 +513,12 @@ j=0;
                 i++;
                 x1=x[i-1];
          } while (i<n);
- 
+
     for(i=0; i<n; i++)
+    {
     Series2->AddXY(x[i],y[i]);
+    Series5->AddXY(x[i],y[i]);
+    }
 
 int ColMin = 0;
 for(i=0; i<j; i++)
@@ -509,4 +559,140 @@ if(b1>0 && b1<=10000 && b1min>=-10000 && b1min<=10000)
 //---------Масштаб конец
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button9Click(TObject *Sender)//Нахождение общего сплайна
+{
+int kol=0, i=0, j=0, kk;
+//---------проверка на отсутствие файла
+if ((Fs=fopen(File_Zap,"rb"))==NULL)
+        {
+        ListBox1->Items->Text = "Not found";
+        return;
+        }
+//---------проверка на пустой файл
+ifstream h(File_Zap);
+if (h.is_open())
+       {
+        std::string str;
+        std::getline(h, str);
+        if (h.eof() && str.empty()){
+                ListBox1->Items->Text = "Error";//если файл пуст выдает ошибку
+                fclose(Fs);}
+                else
+                {
+
+ListBox1->Items->Text = "";
+while(1){
+        if(fread(&Zap[i],size,1,Fs)==0) break;
+        kol++;
+        i=i+1;
+        }
+
+for(i=0; i<kol; i++)
+   for(kk=i+1; kk<kol; kk++)
+       if ((Zap[kk].s_x)<(Zap[i].s_x))
+       {
+         p=Zap[kk];          // Обмен Zap[k] и Zap[i]
+         Zap[kk]=Zap[i];
+         Zap[i]=p;
+       }
+
+double a[1000],b[1000],c[1000],y[1000],x[1000],
+h[1000],d[1000],k[1000],l[1000],r[1000],s[1000];
+int n=kol;
+
+//------------Вывод X и Y
+
+for(i=1; i<n; i++)
+   {
+   if((Zap[i].s_x)-(Zap[i-1].s_x)>=0.00001)
+        {
+        x[j]=Zap[i-1].s_x;
+        y[j]=Zap[i-1].s_y;
+        j=j+1;
+        }
+   }
+n=j;
+
+Series1->Clear();
+Series2->Clear();
+Series3->Clear();
+Series4->Clear();
+Series5->Clear();
+
+fclose(Fs);
+
+//------------Нахождение коэффициентов
+ for(i=2; i<n; i++)  {
+    k[1]=0;    
+    l[1]=0;
+
+    h[i-1]=x[i-1]-x[i-2];
+    h[i]=x[i]-x[i-1];
+ 
+    s[i]=2*(h[i]+h[i-1]);
+ 
+    r[i]=3*((y[i]-y[i-1])/h[i]-(y[i-1]-y[i-2])/h[i-1]);
+ 
+    k[i]=(r[i]-h[i-1]*k[i-1])/(s[i]-h[i-1]*l[i-1]);
+ 
+    l[i]=h[i]/(s[i]-h[i-1]*l[i-1]);
+    }
+
+   c[n-1]=k[n-1];
+   for(i=n-2; i>=2; i--)
+   c[i]=k[i]-l[i]*c[i+1];
+
+ 
+  for(i=1; i<n; i++)
+  {
+  h[i]=x[i]-x[i-1];
+  a[i]=y[i-1];
+  b[i]=(y[i]-y[i-1])/h[i]-h[i]*(2*c[i]+c[i+1])/3;
+  d[i]=(c[i+1]-c[i])/(3*h[i]);
+  }
+
+i=1;
+double x1=x[0];
+double x2;
+double y2=0;
+j=0;
+ 
+      do {
+        do {
+        y2=a[i]+b[i]*(x1-x[i-1])+c[i]*pow((x1-x[i-1]), 2)+d[i]*pow((x1-x[i-1]), 3);
+        Series1->AddXY(x1, y2);
+        x1=x1+0.0001;
+        //---------------
+                MinX[j]=x1;
+                MinY[j]=y2;
+                j++;
+        //---------------
+        x2=static_cast<double>(x1);
+            } while (x2<x[i]);
+                i++;
+                x1=x[i-1];
+         } while (i<n);
+
+    for(i=0; i<n; i++)
+    {
+    Series2->AddXY(x[i],y[i]);
+    Series5->AddXY(x[i],y[i]);
+    }
+
+int ColMin = 0;
+for(i=0; i<j; i++)
+   if(MinY[i]<MinY[i-1] && MinY[i]<MinY[i+1])
+        {
+        MinXX[ColMin]=MinX[i];
+        MinYY[ColMin]=MinY[i];
+        ColMin=ColMin+1;
+        }
+for(i=0; i<ColMin; i++)
+    Series3->AddXY(MinXX[i],MinYY[i]);
+                }
+        }
+}
+//---------------------------------------------------------------------------
+
 

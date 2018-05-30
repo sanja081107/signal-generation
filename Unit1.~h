@@ -13,13 +13,13 @@
 #include <Series.hpp>
 #include <TeEngine.hpp>
 #include <TeeProcs.hpp>
+#include <BubbleCh.hpp>
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
 __published:	// IDE-managed Components
         TChart *Chart1;
         TFastLineSeries *Series1;
-        TFastLineSeries *Series2;
         TFastLineSeries *Series3;
         TFastLineSeries *Series4;
         TBitBtn *Button1;
@@ -59,6 +59,9 @@ __published:	// IDE-managed Components
         TButton *Button8;
         TEdit *ScaleXmin;
         TEdit *ScaleYmin;
+        TFastLineSeries *Series2;
+        TPointSeries *Series5;
+        TButton *Button9;
 
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall Button2Click(TObject *Sender);
@@ -74,6 +77,7 @@ __published:	// IDE-managed Components
         void __fastcall Button6Click(TObject *Sender);
         void __fastcall Button7Click(TObject *Sender);
         void __fastcall Button8Click(TObject *Sender);
+        void __fastcall Button9Click(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations
@@ -88,16 +92,15 @@ double Wp0[1000], Wp10[1000], Wp1[1000], Wp11[1000], Wp2[1000], Wp12[1000],Wp3[1
        Wp13[1000], Wpb[1000], Wpmax[1000], Wpmin[1000], Wp[1000],MinX[1000000],MinY[1000000],
        MinXX[10000],MinYY[10000];
 
-AnsiString str;   //переменная для названия теекстового документа
+AnsiString str, str2;   //переменнsые для названия теекстовых документов
 
 struct TZap{
      double s_x, s_y, s_nom;
      } Zap[200], p;
 
         int size = sizeof(TZap);
-        FILE *myfile, *Fz;
+        FILE *myfile, *Fz, *Fs;
         char File_Zap[] = "zapisi.dat";
-
 
 void FrequencyWSP()
 {

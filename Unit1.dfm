@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 667
-  Top = 174
+  Left = 632
+  Top = 155
   Width = 670
   Height = 547
   Caption = 'Form1'
@@ -35,56 +35,56 @@ object Form1: TForm1
   end
   object Label5: TLabel
     Left = 56
-    Top = 288
+    Top = 296
     Width = 44
     Height = 13
     Caption = 'Series1 - '
   end
   object Label6: TLabel
     Left = 104
-    Top = 288
+    Top = 296
     Width = 98
     Height = 13
     Caption = #1050#1091#1073#1080#1095#1077#1089#1082#1080#1081' '#1089#1087#1083#1072#1081#1085
   end
   object Label7: TLabel
     Left = 56
-    Top = 304
+    Top = 312
     Width = 44
     Height = 13
     Caption = 'Series2 - '
   end
   object Label8: TLabel
     Left = 104
-    Top = 304
+    Top = 312
     Width = 96
     Height = 13
     Caption = #1051#1080#1085#1077#1081#1085#1072#1103' '#1092#1091#1085#1082#1094#1080#1103
   end
   object Label9: TLabel
     Left = 216
-    Top = 288
+    Top = 296
     Width = 44
     Height = 13
     Caption = 'Series3 - '
   end
   object Label10: TLabel
     Left = 264
-    Top = 288
+    Top = 296
     Width = 108
     Height = 13
     Caption = #1060#1091#1085#1082#1094#1080#1103' '#1084#1080#1085#1080#1084#1091#1084#1086#1074
   end
   object Label11: TLabel
     Left = 216
-    Top = 304
+    Top = 312
     Width = 44
     Height = 13
     Caption = 'Series4 - '
   end
   object Label12: TLabel
     Left = 264
-    Top = 304
+    Top = 312
     Width = 115
     Height = 13
     Caption = #1060#1091#1085#1082#1094#1080#1103' '#1087#1086#1075#1088#1077#1096#1085#1086#1089#1090#1080
@@ -93,44 +93,46 @@ object Form1: TForm1
     Left = 16
     Top = 16
     Width = 449
-    Height = 265
+    Height = 273
     BackWall.Brush.Color = clWhite
     BackWall.Brush.Style = bsClear
     Title.Text.Strings = (
       'TChart')
+    Legend.DividingLines.Style = psDashDotDot
+    Legend.TextStyle = ltsPlain
     View3D = False
     TabOrder = 0
     object Label3: TLabel
       Left = 368
-      Top = 144
+      Top = 136
       Width = 76
       Height = 13
       Caption = #1047#1085#1072#1095#1077#1085#1080#1077' '#1087#1086' Y:'
     end
     object Label4: TLabel
       Left = 368
-      Top = 104
+      Top = 96
       Width = 76
       Height = 13
       Caption = #1047#1085#1072#1095#1077#1085#1080#1077' '#1087#1086' X:'
     end
     object ScaleY: TEdit
       Left = 408
-      Top = 160
+      Top = 152
       Width = 41
       Height = 21
       TabOrder = 0
     end
     object ScaleX: TEdit
       Left = 408
-      Top = 120
+      Top = 112
       Width = 41
       Height = 21
       TabOrder = 1
     end
     object Button8: TButton
       Left = 376
-      Top = 184
+      Top = 176
       Width = 67
       Height = 25
       Caption = #1052#1072#1089#1096#1090#1072#1073
@@ -139,17 +141,26 @@ object Form1: TForm1
     end
     object ScaleXmin: TEdit
       Left = 368
-      Top = 120
+      Top = 112
       Width = 41
       Height = 21
       TabOrder = 3
     end
     object ScaleYmin: TEdit
       Left = 368
-      Top = 160
+      Top = 152
       Width = 41
       Height = 21
       TabOrder = 4
+    end
+    object Button9: TButton
+      Left = 376
+      Top = 208
+      Width = 67
+      Height = 25
+      Caption = #1054#1073#1097'. '#1089#1087#1083#1081#1085
+      TabOrder = 5
+      OnClick = Button9Click
     end
     object Series1: TFastLineSeries
       Marks.ArrowLength = 30
@@ -168,8 +179,7 @@ object Form1: TForm1
     object Series2: TFastLineSeries
       Marks.ArrowLength = 8
       Marks.Visible = False
-      SeriesColor = clGreen
-      LinePen.Color = clGreen
+      SeriesColor = clBlack
       XValues.DateTime = False
       XValues.Name = 'X'
       XValues.Multiplier = 1
@@ -182,7 +192,8 @@ object Form1: TForm1
     object Series3: TFastLineSeries
       Marks.ArrowLength = 8
       Marks.Visible = False
-      SeriesColor = clBlack
+      SeriesColor = clGreen
+      LinePen.Color = clGreen
       XValues.DateTime = False
       XValues.Name = 'X'
       XValues.Multiplier = 1
@@ -197,6 +208,29 @@ object Form1: TForm1
       Marks.Visible = False
       SeriesColor = clBlue
       LinePen.Color = clBlue
+      XValues.DateTime = False
+      XValues.Name = 'X'
+      XValues.Multiplier = 1
+      XValues.Order = loAscending
+      YValues.DateTime = False
+      YValues.Name = 'Y'
+      YValues.Multiplier = 1
+      YValues.Order = loNone
+    end
+    object Series5: TPointSeries
+      ColorEachPoint = True
+      Marks.ArrowLength = 0
+      Marks.Frame.Visible = False
+      Marks.Transparent = True
+      Marks.Visible = False
+      SeriesColor = clGreen
+      ShowInLegend = False
+      Pointer.Brush.Color = clGreen
+      Pointer.HorizSize = 3
+      Pointer.InflateMargins = False
+      Pointer.Style = psCircle
+      Pointer.VertSize = 3
+      Pointer.Visible = True
       XValues.DateTime = False
       XValues.Name = 'X'
       XValues.Multiplier = 1
@@ -357,10 +391,10 @@ object Form1: TForm1
     TabOrder = 15
   end
   object Button4: TButton
-    Left = 464
-    Top = 288
+    Left = 472
+    Top = 272
     Width = 75
-    Height = 25
+    Height = 41
     Caption = #1055#1086#1082#1072#1079#1072#1090#1100
     TabOrder = 16
     OnClick = Button4Click
@@ -374,18 +408,9 @@ object Form1: TForm1
     TabOrder = 17
     OnClick = Button5Click
   end
-  object Button6: TButton
-    Left = 544
-    Top = 288
-    Width = 75
-    Height = 25
-    Caption = #1057#1086#1088#1090#1080#1088#1086#1074#1072#1090#1100
-    TabOrder = 18
-    OnClick = Button6Click
-  end
   object Button7: TButton
     Left = 392
-    Top = 248
+    Top = 256
     Width = 65
     Height = 25
     Caption = #1057#1087#1083#1072#1081#1085
@@ -406,5 +431,22 @@ object Form1: TForm1
     Height = 17
     Caption = '.'
     TabOrder = 21
+  end
+  object Button6: TButton
+    Left = 552
+    Top = 272
+    Width = 75
+    Height = 41
+    BiDiMode = bdLeftToRight
+    Caption = #1042#1089#1077' '#1079#1085#1072#1095#1077#1085#1080#1103
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentBiDiMode = False
+    ParentFont = False
+    TabOrder = 18
+    OnClick = Button6Click
   end
 end
