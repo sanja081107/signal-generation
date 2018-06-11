@@ -192,8 +192,8 @@ object Form1: TForm1
     object Series3: TFastLineSeries
       Marks.ArrowLength = 8
       Marks.Visible = False
-      SeriesColor = clLime
-      LinePen.Color = clLime
+      SeriesColor = clGreen
+      LinePen.Color = clGreen
       XValues.DateTime = False
       XValues.Name = 'X'
       XValues.Multiplier = 1

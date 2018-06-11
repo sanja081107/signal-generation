@@ -99,7 +99,7 @@ struct TZap{
      } Zap[200], p;
 
         int size = sizeof(TZap);
-        FILE *myfile, *Fz, *Fs;
+        FILE *myfile, *Fz, *Fs, *Obshchiy;
         char File_Zap[] = "zapisi.dat";
 
 void FrequencyWSP()

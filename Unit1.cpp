@@ -614,6 +614,13 @@ for(i=1; i<n; i++)
    }
 n=j;
 
+Obshchiy = fopen("Obshchiy.txt", "w");
+
+for(i=0;i<n;i++)
+fprintf(Obshchiy, "%lf %lf %d\n", x[i], y[i], i);
+
+fclose(Obshchiy);
+
 Series1->Clear();
 Series2->Clear();
 Series3->Clear();
@@ -662,7 +669,7 @@ j=0;
         do {
         y2=a[i]+b[i]*(x1-x[i-1])+c[i]*pow((x1-x[i-1]), 2)+d[i]*pow((x1-x[i-1]), 3);
         Series1->AddXY(x1, y2);
-        x1=x1+0.0001;
+        x1=x1+0.00001;
         //---------------
                 MinX[j]=x1;
                 MinY[j]=y2;
